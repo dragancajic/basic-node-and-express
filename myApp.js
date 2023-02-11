@@ -16,29 +16,29 @@ app.get("/", function (req, res) {
 	console.log("path to view in HTML:", __dirname + '/views/index.html');
 });
 
-
+// > The endpoint `/json` should serve the JSON object `{"message": "Hello json"}`
+// or `{"message": "HELLO JSON"}`.
 app.get("/json", function (req, res) {
 
 	let data = { "message": "Hello json" };
+	/*
+	Note that you must read the value of process.env.MESSAGE_STYLE inside
+	the route handler, not outside of it, due to the way our tests run:
+	*/
+	const mySecret = process.env['MESSAGE_STYLE'];
 
-	console.log(process.env.MESSAGE_STYLE);
+	console.log(mySecret);
 
-	if (process.env.MESSAGE_STYLE === 'uppercase') {
+	if (mySecret === 'uppercase') {
 		console.log("YES! It is equal to 'uppercase'!");
 		data.message = "HELLO JSON";
 		console.log(data.message);
 	}
 
-	console.log(process.env.MESSAGE_STYLE);
+	console.log(mySecret);
 
 	console.log(data);
 	return res.json(data);
 });
-
-
-
-
-
-
 
 module.exports = app;
