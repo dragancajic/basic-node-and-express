@@ -6,6 +6,11 @@ let app = express();
 
 console.log("Hello World");
 
+app.use('/', function (req, res, next) {
+	console.log(req.method, req.path, '-', req.ip);
+	next();
+});
+
 app.use('/public', express.static(__dirname + '/public'));
 console.log("path to public static assets:", __dirname + '/public');
 
@@ -27,7 +32,7 @@ app.get("/json", function (req, res) {
 	*/
 	const mySecret = process.env['MESSAGE_STYLE'];
 
-	console.log(mySecret);
+	console.log("1st log from '/json' endpoint:", mySecret);
 
 	if (mySecret === 'uppercase') {
 		console.log("YES! It is equal to 'uppercase'!");
@@ -35,9 +40,9 @@ app.get("/json", function (req, res) {
 		console.log(data.message);
 	}
 
-	console.log(mySecret);
+	console.log("2nd log from '/json' enpoint:", mySecret);
 
-	console.log(data);
+	console.log("log data from '/json' endpoint:", data);
 	return res.json(data);
 });
 
