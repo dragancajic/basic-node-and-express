@@ -11,6 +11,15 @@ app.use('/', function (req, res, next) {
 	next();
 });
 
+app.get('/now', function (req, res, next) {
+	req.time = new Date().toString();
+	next();
+}, function (req, res) {
+	let data = { time: req.time };
+	console.log("log data from '/now' endpoint:", data);
+	return res.json(data);
+});
+
 app.use('/public', express.static(__dirname + '/public'));
 console.log("path to public static assets:", __dirname + '/public');
 
