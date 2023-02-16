@@ -11,6 +11,13 @@ app.use('/', function (req, res, next) {
 	next();
 });
 
+app.get('/:word/echo', function (req, res) {
+	let data = { echo: req.params.word };
+
+	console.log("log data from '/:word/echo' endpoint:", data);
+	return res.json(data);
+});
+
 app.get('/now', function (req, res, next) {
 	req.time = new Date().toString();
 	next();
