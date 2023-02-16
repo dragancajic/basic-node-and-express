@@ -11,6 +11,14 @@ app.use('/', function (req, res, next) {
 	next();
 });
 
+app.route('/name').get(function (req, res) {
+	let data = { name: `${req.query.first} ${req.query.last}` };
+	console.log("query string from `/name` endpoint:", req.query);
+	console.log('req.query.first =', req.query.first, '\nreq.query.last =', req.query.last);
+	console.log("log data from `/name` endpoint:", data);
+	return res.json(data);
+});
+
 app.get('/:word/echo', function (req, res) {
 	let data = { echo: req.params.word };
 
